@@ -5,7 +5,7 @@ plugins {
 	id 'java-library'
 	id 'maven-publish'
 	id 'signing'
-	id 'dev.lukebemish.immaculate' version '0.1.8'
+	id 'dev.lukebemish.immaculate' version '0.1.+'
 	id 'idea'
 	id 'net.neoforged.moddev' version "${mdg_version}"
 }
@@ -25,6 +25,16 @@ java {
 }
 
 repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
+        }
+    }
 	exclusiveContent {
 		forRepository {
 			maven {
@@ -43,13 +53,13 @@ repositories {
 		}
 		filter { includeGroupAndSubgroups "mezz.jei" }
 	}
-	maven {
-		name = 'TommyLib'
-		url = 'https://dl.cloudsmith.io/public/thomasglasser/tommylib/maven/'
-		content {
-			includeGroupAndSubgroups("dev.thomasglasser.tommylib")
-		}
-	}
+    maven {
+        name = 'TommyLib'
+        url = 'https://dl.cloudsmith.io/public/thomasglasser/tommylib/maven/'
+        content {
+            includeGroupAndSubgroups("dev.thomasglasser.tommylib")
+        }
+    }
 	maven {
 		name = 'NeoForge'
 		url = 'https://maven.neoforged.net/releases'
@@ -99,7 +109,7 @@ neoForge {
 	}
 
 	mods {
-		neoforgetemplate {
+		purpsquirks {
 			sourceSet sourceSets.main
 		}
 	}
@@ -110,9 +120,9 @@ configurations {
 }
 
 dependencies {
-	jarJar implementation("dev.thomasglasser.tommylib:tommylib-neoforge-${minecraft_version}:${tommylib_version}")
+    jarJar api("dev.thomasglasser.tommylib:tommylib-neoforge-${minecraft_version}:${tommylib_version}")
 
-	// Runtime
+    // Runtime
 	localRuntime "maven.modrinth:jade:${jade_version}+neoforge"
 	localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
@@ -134,7 +144,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 			java_version: java_version,
 			icon: icon,
 			github_name: github_name,
-			tommylib_version: tommylib_version,
+            tommylib_version: tommylib_version,
 	]
 
 	inputs.properties replaceProperties
@@ -216,7 +226,7 @@ publishing {
 			pom {
 				name = project.mod_name
 				description = project.description
-				url = "https://github.com/thomasglasser/${github_name}/wiki"
+				url = "https://github.com/purppecat/${github_name}/wiki"
 				licenses {
 					license {
 						name = project.license
@@ -231,12 +241,12 @@ publishing {
 				}
 				issueManagement {
 					system = 'GitHub'
-					url = "https://github.com/thomasglasser/${github_name}/issues"
+					url = "https://github.com/purppecat/${github_name}/issues"
 				}
 				scm {
-					connection = "scm:git:git://github.com/thomasglasser/${github_name}.git"
-					developerConnection = "scm:git:ssh://github.com:thomasglasser/${github_name}.git"
-					url = "https://github.com/thomasglasser/${github_name}/tree/${minecraft_version}"
+					connection = "scm:git:git://github.com/purppecat/${github_name}.git"
+					developerConnection = "scm:git:ssh://github.com:purppecat/${github_name}.git"
+					url = "https://github.com/purppecat/${github_name}/tree/${minecraft_version}"
 				}
 			}
 		}
@@ -245,7 +255,7 @@ publishing {
 	repositories {
 		maven {
 			name = "Cloudsmith"
-			url = "https://maven.cloudsmith.io/thomasglasser/${mod_id}/"
+			url = "https://maven.cloudsmith.io/purppecat/${mod_id}/"
 			credentials {
 				username = project.findProperty("CLOUDSMITH_USERNAME") ?: System.getenv("CLOUDSMITH_USERNAME")
 				password = project.findProperty("CLOUDSMITH_API_KEY") ?: System.getenv("CLOUDSMITH_API_KEY")

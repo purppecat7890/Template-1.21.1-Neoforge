@@ -16,3 +16,5 @@ This guide will show how to import the NeoForge Template into IntelliJ IDEA. The
 7. Configure the packages and classes in the `src` folder to match your mod.
 8. Open your Run/Debug Configurations. Under the Application category there should now be options to run NeoForge projects. Select one of the client options and try to run it.
 9. Assuming you were able to run the game in step 7 your workspace should now be set up.
+
+ORIGINAL TEMPLATE BY THOMAS GLASSER, ADJUSTED TO WORK FOR PURPPECAT
